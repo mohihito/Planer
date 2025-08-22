@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Transaction, TransactionType, TypeOption, AggregatedTransactionGroup } from '../types';
 import TrashIcon from './icons/TrashIcon';
@@ -12,16 +13,17 @@ interface TransactionListProps {
   typeOptions: TypeOption[];
   type: TransactionType;
   totalAmountForPercentage?: number;
+  currency: string;
 }
 
-const TransactionList: React.FC<TransactionListProps> = ({ title, groups, onInitiateDelete, onEdit, typeOptions, type, totalAmountForPercentage }) => {
+const TransactionList: React.FC<TransactionListProps> = ({ title, groups, onInitiateDelete, onEdit, typeOptions, type, totalAmountForPercentage, currency }) => {
   const getTypeLabel = (descriptionValue: string) => {
     const option = typeOptions.find(o => o.value === descriptionValue);
     return option ? option.label : descriptionValue;
   }
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: currency }).format(amount);
   };
 
   const getHighlightStyles = (description: string, transactionType: TransactionType) => {

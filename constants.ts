@@ -1,4 +1,12 @@
+
 import { TypeOption } from './types';
+
+export const CURRENCIES: TypeOption[] = [
+    { value: 'USD', label: 'USD - United States Dollar' },
+    { value: 'EUR', label: 'EUR - Euro' },
+    { value: 'PLN', label: 'PLN - Polish Złoty' },
+    { value: 'GBP', label: 'GBP - British Pound' },
+];
 
 export const INCOME_TYPES: TypeOption[] = [
     { value: 'full_time', label: 'Full-time' },

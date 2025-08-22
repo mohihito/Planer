@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 interface SummaryCardProps {
@@ -5,11 +6,12 @@ interface SummaryCardProps {
   expenses: number;
   balance: number;
   totalSavings: number;
+  currency: string;
 }
 
-const SummaryCard: React.FC<SummaryCardProps> = ({ income, expenses, balance, totalSavings }) => {
+const SummaryCard: React.FC<SummaryCardProps> = ({ income, expenses, balance, totalSavings, currency }) => {
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: currency }).format(amount);
   };
 
   const getBalanceStyle = () => {

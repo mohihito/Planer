@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useCallback } from 'react';
 import { Transaction, AggregatedTransactionGroup } from './types';
 import { useLocalStorage } from './hooks/useLocalStorage';
@@ -11,9 +12,11 @@ import { INCOME_TYPES, EXPENSE_TYPES, INCOME_SORT_ORDER, EXPENSE_SORT_ORDER } fr
 import EditTransactionModal from './components/EditTransactionModal';
 import ConfirmDeleteModal from './components/ConfirmDeleteModal';
 import { useToast } from './components/ToastProvider';
+import SettingsCard from './components/SettingsCard';
 
 function App() {
   const [transactions, setTransactions] = useLocalStorage<Transaction[]>('transactions', []);
+  const [currency, setCurrency] = useLocalStorage<string>('currency', 'USD');
   const [currentDate, setCurrentDate] = useState(new Date());
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
   const [deletingTransaction, setDeletingTransaction] = useState<Transaction | null>(null);
@@ -199,10 +202,12 @@ function App() {
           {/* Left Column */}
           <div className="lg:w-1/3 flex flex-col gap-8">
             <MonthNavigator currentDate={currentDate} onDateChange={setCurrentDate} />
-            <SummaryCard income={totalIncome} expenses={totalExpenses} balance={balance} totalSavings={totalSavings} />
+            <SummaryCard income={totalIncome} expenses={totalExpenses} balance={balance} totalSavings={totalSavings} currency={currency} />
             <TransactionForm 
-              onSubmit={addTransaction} 
+              onSubmit={addTransaction}
+              currency={currency}
             />
+            <SettingsCard currency={currency} onCurrencyChange={setCurrency} />
             <div className="bg-slate-800 rounded-xl shadow-md p-6 border border-slate-700">
               <h2 className="text-lg font-semibold text-slate-200 mb-4">Data Management</h2>
               <div className="grid grid-cols-1 gap-4">
@@ -214,6 +219,7 @@ function App() {
                   currentDate={currentDate}
                   incomeTypes={INCOME_TYPES}
                   expenseTypes={EXPENSE_TYPES}
+                  currency={currency}
                 />
                 <ImportButton
                   onImport={handleImportTransactions}
@@ -233,6 +239,7 @@ function App() {
                 onEdit={setEditingTransaction}
                 typeOptions={INCOME_TYPES}
                 type="income"
+                currency={currency}
               />
               <TransactionList
                 title="Expenses"
@@ -242,6 +249,7 @@ function App() {
                 typeOptions={EXPENSE_TYPES}
                 type="expense"
                 totalAmountForPercentage={totalExpenses}
+                currency={currency}
               />
             </div>
           </div>
@@ -254,6 +262,7 @@ function App() {
           onClose={() => setEditingTransaction(null)}
           incomeTypes={INCOME_TYPES}
           expenseTypes={EXPENSE_TYPES}
+          currency={currency}
         />
       )}
       {deletingTransaction && (

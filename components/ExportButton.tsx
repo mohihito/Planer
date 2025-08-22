@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Transaction, TypeOption } from '../types';
 import DownloadIcon from './icons/DownloadIcon';
@@ -10,6 +11,7 @@ interface ExportButtonProps {
     currentDate: Date;
     incomeTypes: TypeOption[];
     expenseTypes: TypeOption[];
+    currency: string;
 }
 
 const ExportButton: React.FC<ExportButtonProps> = ({
@@ -19,7 +21,8 @@ const ExportButton: React.FC<ExportButtonProps> = ({
     balance,
     currentDate,
     incomeTypes,
-    expenseTypes
+    expenseTypes,
+    currency
 }) => {
 
     const formatCurrencyForCSV = (amount: number) => {
@@ -49,15 +52,15 @@ const ExportButton: React.FC<ExportButtonProps> = ({
             'Date',
             'Name',
             'Type',
-            'Amount (USD)',
+            `Amount (${currency})`,
             'Transaction Kind'
         ];
 
         const summary = [
             [`Financial report for: ${monthName} ${year}`],
-            [`Total income: ${formatCurrencyForCSV(income)} USD`],
-            [`Total expenses: ${formatCurrencyForCSV(expenses)} USD`],
-            [`Balance: ${formatCurrencyForCSV(balance)} USD`],
+            [`Total income: ${formatCurrencyForCSV(income)} ${currency}`],
+            [`Total expenses: ${formatCurrencyForCSV(expenses)} ${currency}`],
+            [`Balance: ${formatCurrencyForCSV(balance)} ${currency}`],
             []
         ];
 

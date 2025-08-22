@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Transaction, TypeOption } from '../types';
 import CustomSelect from './CustomSelect';
@@ -9,6 +10,7 @@ interface EditTransactionModalProps {
     onClose: () => void;
     incomeTypes: TypeOption[];
     expenseTypes: TypeOption[];
+    currency: string;
 }
 
 const EditTransactionModal: React.FC<EditTransactionModalProps> = ({
@@ -16,7 +18,8 @@ const EditTransactionModal: React.FC<EditTransactionModalProps> = ({
     onSave,
     onClose,
     incomeTypes,
-    expenseTypes
+    expenseTypes,
+    currency
 }) => {
     const [name, setName] = useState(transaction.name);
     const [amount, setAmount] = useState(String(transaction.amount));
@@ -87,7 +90,7 @@ const EditTransactionModal: React.FC<EditTransactionModalProps> = ({
                         />
                     </div>
                     <div>
-                        <label htmlFor="edit-amount" className="block text-sm font-medium text-slate-300">Amount (USD)</label>
+                        <label htmlFor="edit-amount" className="block text-sm font-medium text-slate-300">Amount ({currency})</label>
                         <input
                             type="number"
                             id="edit-amount"

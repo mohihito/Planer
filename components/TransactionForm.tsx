@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Transaction, TransactionType } from '../types';
 import { INCOME_TYPES, EXPENSE_TYPES } from '../constants';
@@ -6,9 +7,10 @@ import { useToast } from './ToastProvider';
 
 interface TransactionFormProps {
   onSubmit: (transaction: Omit<Transaction, 'id' | 'recurringKey'> & { isRecurring?: boolean }) => void;
+  currency: string;
 }
 
-const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
+const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit, currency }) => {
   const [type, setType] = useState<TransactionType>('expense');
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
@@ -92,7 +94,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSubmit }) => {
           />
         </div>
         <div>
-          <label htmlFor="amount" className="block text-sm font-medium text-slate-300">Amount (USD)</label>
+          <label htmlFor="amount" className="block text-sm font-medium text-slate-300">Amount ({currency})</label>
           <input
             type="number"
             id="amount"
