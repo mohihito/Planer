@@ -77,7 +77,7 @@ function App() {
         }
         return newTransactions;
     });
-    addToast('Transaction added successfully', 'success');
+    addToast('Transakcja dodana pomyślnie', 'success');
   }, [setTransactions, addToast]);
 
   const updateTransaction = useCallback((updatedTransaction: Transaction) => {
@@ -119,7 +119,7 @@ function App() {
         return newTransactions;
     });
     setEditingTransaction(null);
-    addToast('Transaction updated successfully', 'success');
+    addToast('Transakcja zaktualizowana', 'success');
   }, [setTransactions, addToast]);
 
   const initiateDelete = useCallback((transaction: Transaction) => {
@@ -127,13 +127,13 @@ function App() {
           setDeletingTransaction(transaction);
       } else {
           setTransactions(prev => prev.filter(t => t.id !== transaction.id));
-          addToast('Transaction deleted successfully', 'success');
+          addToast('Transakcja usunięta', 'success');
       }
   }, [setTransactions, addToast]);
 
   const handleDeleteSingle = useCallback((transactionId: string) => {
       setTransactions(prev => prev.filter(t => t.id !== transactionId));
-      addToast('Single transaction deleted.', 'success');
+      addToast('Usunięto pojedynczą transakcję.', 'success');
       setDeletingTransaction(null);
   }, [setTransactions, addToast]);
 
@@ -141,16 +141,16 @@ function App() {
       setTransactions(prev => prev.filter(t => 
           t.recurringKey !== transactionToDelete.recurringKey || new Date(t.date) < new Date(transactionToDelete.date)
       ));
-      addToast('Transaction and all future occurrences deleted.', 'success');
+      addToast('Usunięto transakcję i wszystkie przyszłe wystąpienia.', 'success');
       setDeletingTransaction(null);
   }, [setTransactions, addToast]);
 
 
   const handleImportTransactions = useCallback((importedTransactions: Omit<Transaction, 'id'>[]) => {
-    if (window.confirm("Are you sure you want to replace all existing data with new data from the file? This operation is irreversible.")) {
+    if (window.confirm("Czy na pewno chcesz zastąpić wszystkie istniejące dane nowymi danymi z pliku? Ta operacja jest nieodwracalna.")) {
         const transactionsWithIds = importedTransactions.map(t => ({ ...t, id: crypto.randomUUID() }));
         setTransactions(transactionsWithIds);
-        addToast(`Successfully imported ${transactionsWithIds.length} transactions.`, 'success');
+        addToast(`Pomyślnie zaimportowano ${transactionsWithIds.length} transakcji.`, 'success');
     }
   }, [setTransactions, addToast]);
 
@@ -190,7 +190,7 @@ function App() {
       <header className="bg-slate-800/50 border-b border-slate-700 shadow-sm">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold leading-tight text-slate-100">
-            Monthly Financial Planner
+            Miesięczny Planer Finansowy
           </h1>
         </div>
       </header>
@@ -204,7 +204,7 @@ function App() {
               onSubmit={addTransaction} 
             />
             <div className="bg-slate-800 rounded-xl shadow-md p-6 border border-slate-700">
-              <h2 className="text-lg font-semibold text-slate-200 mb-4">Data Management</h2>
+              <h2 className="text-lg font-semibold text-slate-200 mb-4">Zarządzanie Danymi</h2>
               <div className="grid grid-cols-1 gap-4">
                 <ExportButton
                   transactions={filteredTransactions}
@@ -227,7 +227,7 @@ function App() {
           <div className="lg:w-2/3 flex flex-col gap-8">
             <div className="flex flex-col md:flex-row gap-8">
               <TransactionList 
-                title="Income"
+                title="Przychody"
                 groups={aggregatedIncome}
                 onInitiateDelete={initiateDelete}
                 onEdit={setEditingTransaction}
@@ -235,7 +235,7 @@ function App() {
                 type="income"
               />
               <TransactionList
-                title="Expenses"
+                title="Wydatki"
                 groups={aggregatedExpenses}
                 onInitiateDelete={initiateDelete}
                 onEdit={setEditingTransaction}

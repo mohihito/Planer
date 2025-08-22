@@ -1,5 +1,5 @@
 {
-  "name": "Home Budget",
-  "description": "An application for planning income and expenses, allowing you to track your finances from month to month and plan future budgets.",
+  "name": "Budżet domowy",
+  "description": "Aplikacja do planowania przychodów i wydatków, która pozwala na śledzenie finansów z miesiąca na miesiąc i planowanie przyszłych budżetów.",
   "requestFramePermissions": []
 }
